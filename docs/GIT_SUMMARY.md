@@ -1,9 +1,5 @@
 # Git Setup Summary
 
-## 🎉 Git Repository Successfully Initialized!
-
-Your SRM Academia API project is now fully set up with Git version control.
-
 ## 📁 Repository Structure
 
 ```
