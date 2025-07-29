@@ -1,0 +1,66 @@
+{
+  "name": "srm-academia-api",
+  "version": "1.0.0",
+  "description": "A robust REST API client for SRMIST KTR Academia portal",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "prepublishOnly": "npm run build",
+    "test": "node scripts/test-package.js",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
+    "verify": "node scripts/verify-publish.js",
+    "test-package": "node scripts/test-package.js"
+  },
+  "keywords": [
+    "srm",
+    "academia",
+    "api",
+    "student",
+    "portal",
+    "timetable",
+    "attendance",
+    "marks",
+    "typescript",
+    "nodejs"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/srm-academia-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/srm-academia-api/issues"
+  },
+  "homepage": "https://github.com/yourusername/srm-academia-api#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@tsconfig/node-lts": "^22.0.2",
+    "@types/node": "^24.1.0",
+    "eslint": "^9.32.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "cheerio": "^1.1.2"
+  }
+}
