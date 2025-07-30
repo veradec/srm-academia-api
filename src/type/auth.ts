@@ -5,7 +5,7 @@ export interface PasswordInput {
   password: string;
 }
 
-export interface UserResponse {
+export interface UserRequest {
   lookup?: {
     identifier: string;
     digest: string;
@@ -13,6 +13,14 @@ export interface UserResponse {
   status_code: number;
   message: string;
 }
+
+export interface UserResponse {
+  identifier: string;
+  digest: string;
+  status_code: number;
+  message: string;
+}
+
 
 export interface PasswordResponse {
   status_code: number;

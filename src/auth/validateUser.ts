@@ -1,4 +1,4 @@
-import { UserValidationResult, UserResponse } from "../type/auth";
+import { UserValidationResult, UserResponse, UserRequest } from "../type/auth";
 
 export async function validateUser(
   username: string
@@ -29,11 +29,16 @@ export async function validateUser(
         method: "POST",
       }
     );
-    const response = (await res.json()) as UserResponse;
+    const response = (await res.json()) as UserRequest;
 
-    const data = {
-      identifier: response.lookup?.identifier,
-      digest: response.lookup?.digest,
+    if (!response.lookup) {
+      throw new Error("Invalid response: missing identifier or digest");
+    }
+
+    const data: UserResponse = {
+      identifier: response.lookup.identifier,
+      digest: response.lookup.digest,
+
       status_code: response.status_code,
       message: response.message,
     };
