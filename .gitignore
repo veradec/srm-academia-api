@@ -124,8 +124,9 @@ docs/
 !docs/*.md
 !README.md
 
-# Ignore script files
+
+# Test purpose
+test/
+
+# Ignore scripts
 scripts/
-*.sh
-*.bat
-*.cmd

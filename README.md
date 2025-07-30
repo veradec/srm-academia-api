@@ -4,13 +4,13 @@ A robust TypeScript/JavaScript client for interacting with the SRMIST KTR Academ
 
 ## Features
 
-- 🔐 **Authentication**: Secure user verification and password validation
-- 📅 **Timetable**: Fetch and parse student timetables
-- 📊 **Attendance**: Retrieve attendance records
-- 📈 **Marks**: Get academic performance data
-- 👤 **User Info**: Access student profile information
-- 📚 **Course Details**: Fetch course information
+- 🔐 **Authentication**: User verification and Password validation
+- 📅 **Timetable**: Get timetable data
+- 📊 **Attendance**: Get attendance data
+- 📈 **Marks**: Get marks data
+- 📚 **Course Details**: Get course information data
 - 🗓️ **Calendar**: Get academic calendar data
+- 👤 **User Info**: Get user information data
 - 🛡️ **TypeScript Support**: Full TypeScript definitions included
 - ⚡ **Modern ES Modules**: Built with modern JavaScript standards
 
@@ -33,67 +33,238 @@ import {
   getCalendar,
   getCourse,
 } from "srm-academia-api";
+```
 
-// Example usage
-async function example() {
-  // Verify user credentials
-  const userVerification = await verifyUser("your-username");
+## Authentication
 
-  // Verify password
-  const passwordVerification = await verifyPassword({
-    identifier: "identifier",
-    digest: "digest",
-    password: "password",
+```typescript
+
+// VerifyUser
+
+   const { data, error, errorReason} = await verifyUser("USERNAME");
+
+        // error will be true if there is any Internal Server Error
+        // errorReason will have reason if there is error
+        // data provide the response data
+
+        // Types
+
+              data?:  {
+                lookup?: {
+                      identifier: string ;
+                      digest: string
+                         };
+                    }
+              status_code: number;
+              message: string;;
+              error?: string;
+              errorReason?: unknown;
+
+
+  // VerifyPassword
+
+   const {data , error , errorReason , isAuthenticated} = await verifyPassword({
+     digest: "DIGEST",
+    identifier: "IDENTIFIER",
+    password: "PASSWORD",
   });
 
-  // Get timetable (requires valid cookie)
-  const timetable = await getTimetable("your-session-cookie");
+        // error will be true if there is any Internal Server Error
+        // errorReason will have reason if there is error
+        // data provide the response data
+        // isAuthenticated will be true if user has been authenticated
 
-  // Get attendance
-  const attendance = await getAttendance("your-session-cookie");
-}
+        // Types
+
+                data?: {
+                  cookies?: string;
+                      statusCode: number;
+                      message?: string;
+                      captcha?: {
+                        required: boolean;
+                        digest: string | null | undefined;
+                      };
+                    };
+                isAuthenticated?: boolean;
+                error?: string;
+                errorReason?: unknown;
+
+
+
+ // Logout
+
+    const {message , status } = await logoutUser("COOKIES");
+
+        // Types
+
+                message: string;
+                status: number;
+
 ```
 
-## Development
+## Timetable
 
-### Prerequisites
+```typescript
 
-- Node.js >= 18.0.0
-- npm or yarn
+  const { timetable, status, error } = await getTimetable('COOKIES');
 
-### Setup
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // timetable provide the response data
+          // status will give the response status ( eg :  200 or 500 )
 
-```bash
-git clone https://github.com/yourusername/srm-academia-api.git
-cd srm-academia-api
-npm install
+          // Types
+
+                timetable?: {
+                  dayOrder: string;
+                  class: {
+                          slot: string;
+                          isClass: boolean;
+                          courseTitle?: string;
+                          courseCode?: string;
+                          courseType?: string;
+                          courseCategory?: string;
+                          courseRoomNo?: string;
+                          time: string;
+                        }[] ;
+                      }[] ;
+                error?: string;
+                status: number;
+
 ```
 
-### Build
+## Attendance
 
-```bash
-npm run build
+```typescript
+
+  const { attendance , status, error } = await getAttendance('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // attendance provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+
+                attendance?: {
+                        courseCode: string;
+                        courseTitle: string;
+                        courseCategory: string;
+                        courseFaculty: string;
+                        courseSlot: string;
+                        courseConducted: number;
+                        courseAbsent: number;
+                        courseAttendance: string;
+                        }[] ;
+                error?: string;
+                status: number;
+
 ```
 
-### Development Mode
+## Marks
 
-```bash
-npm run dev
+```typescript
+
+  const { markList , status, error } = await getMarks('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // markList provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+
+                markList?: {
+                  course: string;
+                  category: string;
+                  marks: {
+                    exam: string;
+                    obtained: number;
+                    maxMark: number;
+                  }[] ;
+                  total: { obtained: number; maxMark: number };
+                }[] ;
+                error?: string;
+                status: number;
+
 ```
 
-### Type Checking
+## Course
 
-```bash
-npm run type-check
+```typescript
+
+  const { courseList , status, error } = await getCourse('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // courseList provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+
+                courseList?: {
+                  courseCode: string;
+                  courseTitle: string;
+                  courseCredit: string;
+                  courseCategory: string;
+                  courseType: string;
+                  courseFaculty: string;
+                  courseSlot: string[];
+                  courseRoomNo: string;
+                }[] ;
+                batch?: string;
+                error?: string;
+                status: number;
+
 ```
 
-## Contributing
+## Calendar
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+```typescript
+
+  const { calendar , status, error } = await getCalendar('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // calendar provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+
+                  calendar?: {
+                      month: string;
+                      days: {
+                          date: string;
+                          day: string;
+                          event: string;
+                          dayOrder: string;
+                      }[] ;
+                  }[] ;
+                  error?: string;
+                  status: number;
+
+```
+
+## User Info
+
+```typescript
+
+  const { userInfo , status, error } = await getUserInfo('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // userInfo provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+                    userInfo?: {
+                        regNumber: string;
+                        name: string;
+                        mobile: string;
+                        section: string;
+                        program: string;
+                        department: string;
+                        semester: string;
+                        batch: string;
+                    } ;
+                    error?: string;
+                    status: number;
+
+```
 
 ## License
 
@@ -102,7 +273,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Disclaimer
 
 This package is not officially affiliated with SRM Institute of Science and Technology. Use responsibly and in accordance with the institution's terms of service.
-
-## Support
-
-If you encounter any issues or have questions, please [open an issue](https://github.com/jackwaghan/srm-academia-api/issues) on GitHub.

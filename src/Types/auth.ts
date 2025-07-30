@@ -44,7 +44,6 @@ export interface UserValidationResult {
 
 // Logout response type
 export interface LogoutResponse {
-  message?: string;
-  error?: string;
+  message: string;
   status: number;
 }

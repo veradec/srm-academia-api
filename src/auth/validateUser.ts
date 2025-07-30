@@ -29,7 +29,15 @@ export async function validateUser(
         method: "POST",
       }
     );
-    const data = (await res.json()) as UserResponse;
+    const response = (await res.json()) as UserResponse;
+
+    const data = {
+      identifier: response.lookup?.identifier,
+      digest: response.lookup?.digest,
+      status_code: response.status_code,
+      message: response.message,
+    };
+
     return { data };
   } catch (e) {
     console.error(e);

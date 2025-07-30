@@ -1,14 +1,14 @@
 {
   "name": "srm-academia-api",
-  "version": "1.0.0",
-  "description": "A robust REST API client for SRMIST KTR Academia portal",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "1.0.2",
+  "description": "REST API for SRMIST KTR Academia portal",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js",
+      "require": "./dist/src/index.js"
     }
   },
   "files": [
@@ -26,27 +26,21 @@
     "test-package": "node scripts/test-package.js"
   },
   "keywords": [
-    "srm",
-    "academia",
-    "api",
-    "student",
-    "portal",
-    "timetable",
-    "attendance",
-    "marks",
-    "typescript",
-    "nodejs"
+    "srm academia api",
+    "academia api",
+    "srm academia backend",
+    "academia backend"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Jack Waghan A S <jackwaghan@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/srm-academia-api.git"
+    "url": "https://github.com/jackwaghan/srm-academia-api.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/srm-academia-api/issues"
+    "url": "https://github.com/jackwaghan/srm-academia-api/issues"
   },
-  "homepage": "https://github.com/yourusername/srm-academia-api#readme",
+  "homepage": "https://github.com/jackwaghan/srm-academia-api#readme",
   "engines": {
     "node": ">=18.0.0"
   },
