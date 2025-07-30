@@ -40,7 +40,7 @@ import {
   SlotInfo,
 } from "./type";
 import { fetchCalendar } from "./fetch/fetchCalendar";
-import { fetchTimetable } from "./fetch/fetchtimetable";
+import { fetchTimetable } from "./fetch/fetchTimetable";
 
 // Re-export all types
 export type {
