@@ -38,6 +38,7 @@ export async function validateUser(
     const data: UserResponse = {
       identifier: response.lookup.identifier,
       digest: response.lookup.digest,
+
       status_code: response.status_code,
       message: response.message,
     };

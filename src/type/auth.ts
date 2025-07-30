@@ -21,6 +21,7 @@ export interface UserResponse {
   message: string;
 }
 
+
 export interface PasswordResponse {
   status_code: number;
   localized_message?: string;
