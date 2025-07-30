@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { UserInfoResponse, UserInfo } from "../Types/user";
+import { UserInfoResponse, UserInfo } from "../type/user";
 
 export async function parseUserInfo(
   response: string

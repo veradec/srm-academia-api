@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { MarksResponse, MarkDetail, Mark } from "../Types/marks";
+import { MarksResponse, MarkDetail, Mark } from "../type/marks";
 
 export async function parseMarks(response: string): Promise<MarksResponse> {
   try {

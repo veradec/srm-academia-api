@@ -114,6 +114,19 @@ temp/
 # Documentation build files
 docs/build/
 docs/.vuepress/dist/
+docs/
 
 # Local development files
 .local/ 
+
+# Ignore all Markdown files except those in the docs directory and README.md
+*.md
+!docs/*.md
+!README.md
+
+
+# Test purpose
+test/
+
+# Ignore scripts
+scripts/

@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { CalendarResponse, Month } from "../Types/calendar";
+import { CalendarResponse, Month } from "../type/calendar";
 
 export async function parseCalendar(
   response: string

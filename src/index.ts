@@ -1,10 +1,8 @@
 import { validatePassword } from "./auth/validatePassword";
 import { validateUser } from "./auth/validateUser";
 import { fetchAttendance } from "./fetch/fetchAttendance";
-import { fetchCalendar } from "./fetch/fetchCalender";
 import { fetchCourseDetails } from "./fetch/fetchCourseDetails";
 import { fetchMarks } from "./fetch/fetchMarks";
-import { fetchTimetable } from "./fetch/fetchTimetable";
 import { fetchUserInfo } from "./fetch/fetchUserInfo";
 import { fetchLogout } from "./fetch/fetchLogout";
 import { parseAttendance } from "./parser/parseAttendance";
@@ -40,7 +38,9 @@ import {
   DaySchedule,
   CourseSlot,
   SlotInfo,
-} from "./Types";
+} from "./type";
+import { fetchCalendar } from "./fetch/fetchCalendar";
+import { fetchTimetable } from "./fetch/fetchTimetable";
 
 // Re-export all types
 export type {
@@ -83,9 +83,12 @@ export async function verifyPassword({
   digest,
   password,
 }: PasswordInput): Promise<AuthResult> {
-  if (!identifier && !digest && !password)
-    return { error: "Invalid Input", errorReason: "Provide a valid input" };
   return await validatePassword({ identifier, digest, password });
+}
+
+// Logout
+export async function logoutUser(cookie: string): Promise<LogoutResponse> {
+  return await fetchLogout(cookie);
 }
 
 // Get TimeTable
@@ -142,10 +145,4 @@ export async function getCourse(cookie: string): Promise<CourseResponse> {
   const parse = await parseCourseDetails(fetch);
   if (parse.error) return { error: parse.error, status: parse.status };
   return parse;
-}
-
-export async function logoutUser(cookie: string): Promise<LogoutResponse> {
-  if (!cookie) return { error: "Token is required", status: 400 };
-  const fetch = await fetchLogout(cookie);
-  return { message: fetch.error, status: fetch.status };
 }

@@ -5,7 +5,7 @@ import {
   TimetableResponse,
   DaySchedule,
   CourseSlot,
-} from "../Types/timetable";
+} from "../type/timetable";
 
 export async function parseTimetable(
   response: string

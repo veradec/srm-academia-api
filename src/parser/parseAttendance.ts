@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { AttendanceResponse, AttendanceDetail } from "../Types/attendance";
+import { AttendanceResponse, AttendanceDetail } from "../type/attendance";
 
 export async function parseAttendance(
   response: string

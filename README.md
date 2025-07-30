@@ -4,13 +4,13 @@ A robust TypeScript/JavaScript client for interacting with the SRMIST KTR Academ
 
 ## Features
 
-- 🔐 **Authentication**: Secure user verification and password validation
-- 📅 **Timetable**: Fetch and parse student timetables
-- 📊 **Attendance**: Retrieve attendance records
-- 📈 **Marks**: Get academic performance data
-- 👤 **User Info**: Access student profile information
-- 📚 **Course Details**: Fetch course information
+- 🔐 **Authentication**: User verification and Password validation
+- 📅 **Timetable**: Get timetable data
+- 📊 **Attendance**: Get attendance data
+- 📈 **Marks**: Get marks data
+- 📚 **Course Details**: Get course information data
 - 🗓️ **Calendar**: Get academic calendar data
+- 👤 **User Info**: Get user information data
 - 🛡️ **TypeScript Support**: Full TypeScript definitions included
 - ⚡ **Modern ES Modules**: Built with modern JavaScript standards
 
@@ -33,215 +33,238 @@ import {
   getCalendar,
   getCourse,
 } from "srm-academia-api";
+```
 
-// Example usage
-async function example() {
-  // Verify user credentials
-  const userVerification = await verifyUser("your-username");
+## Authentication
 
-  // Verify password
-  const passwordVerification = await verifyPassword({
-    identifier: "identifier",
-    digest: "digest",
-    password: "password",
+```typescript
+
+// VerifyUser
+
+   const { data, error, errorReason} = await verifyUser("USERNAME");
+
+        // error will be true if there is any Internal Server Error
+        // errorReason will have reason if there is error
+        // data provide the response data
+
+        // Types
+
+              data?:  {
+                lookup?: {
+                      identifier: string ;
+                      digest: string
+                         };
+                    }
+              status_code: number;
+              message: string;;
+              error?: string;
+              errorReason?: unknown;
+
+
+  // VerifyPassword
+
+   const {data , error , errorReason , isAuthenticated} = await verifyPassword({
+     digest: "DIGEST",
+    identifier: "IDENTIFIER",
+    password: "PASSWORD",
   });
 
-  // Get timetable (requires valid cookie)
-  const timetable = await getTimetable("your-session-cookie");
+        // error will be true if there is any Internal Server Error
+        // errorReason will have reason if there is error
+        // data provide the response data
+        // isAuthenticated will be true if user has been authenticated
 
-  // Get attendance
-  const attendance = await getAttendance("your-session-cookie");
-}
+        // Types
+
+                data?: {
+                  cookies?: string;
+                      statusCode: number;
+                      message?: string;
+                      captcha?: {
+                        required: boolean;
+                        digest: string | null | undefined;
+                      };
+                    };
+                isAuthenticated?: boolean;
+                error?: string;
+                errorReason?: unknown;
+
+
+
+ // Logout
+
+    const {message , status } = await logoutUser("COOKIES");
+
+        // Types
+
+                message: string;
+                status: number;
+
 ```
 
-## API Reference
-
-### Authentication
-
-#### `verifyUser(username: string)`
-
-Verifies if a username exists in the SRM system.
-
-**Parameters:**
-
-- `username` (string): The username to verify
-
-**Returns:** Promise with user verification result
-
-#### `verifyPassword(input: PasswordInput)`
-
-Validates user password with the provided credentials.
-
-**Parameters:**
-
-- `input` (PasswordInput): Object containing identifier, digest, and password
-
-**Returns:** Promise with password validation result
-
-### Data Fetching
-
-All data fetching functions require a valid session cookie from the SRM Academia portal.
-
-#### `getTimetable(cookie: string)`
-
-Fetches and parses the student's timetable.
-
-#### `getAttendance(cookie: string)`
-
-Retrieves attendance records.
-
-#### `getMarks(cookie: string)`
-
-Fetches academic marks and grades.
-
-#### `getUserInfo(cookie: string)`
-
-Gets student profile information.
-
-#### `getCalendar(cookie: string)`
-
-Retrieves academic calendar data.
-
-#### `getCourse(cookie: string)`
-
-Fetches course details and information.
-
-## Types
-
-The package provides comprehensive TypeScript types organized by functionality:
-
-### Authentication Types
+## Timetable
 
 ```typescript
-interface PasswordInput {
-  identifier: string;
-  digest: string;
-  password: string;
-}
 
-interface UserResponse {
-  lookup?: {
-    identifier: string;
-    digest: string;
-  };
-  status_code: number;
-  message: string;
-}
+  const { timetable, status, error } = await getTimetable('COOKIES');
 
-interface AuthResult {
-  data?: {
-    cookies?: string;
-    statusCode: number;
-    message?: string;
-    captcha?: {
-      required: boolean;
-      digest: string | null;
-    };
-  };
-  isAuthenticated?: boolean;
-  error?: string;
-  errorReason?: unknown;
-}
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // timetable provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+
+                timetable?: {
+                  dayOrder: string;
+                  class: {
+                          slot: string;
+                          isClass: boolean;
+                          courseTitle?: string;
+                          courseCode?: string;
+                          courseType?: string;
+                          courseCategory?: string;
+                          courseRoomNo?: string;
+                          time: string;
+                        }[] ;
+                      }[] ;
+                error?: string;
+                status: number;
+
 ```
 
-### Response Types
-
-All API functions return properly typed responses:
+## Attendance
 
 ```typescript
-// Timetable
-interface TimetableResponse {
-  timetable?: DaySchedule[];
-  error?: string;
-  status: number;
-}
 
-// Marks
-interface MarksResponse {
-  markList?: MarkDetail[];
-  error?: string;
-  status: number;
-}
+  const { attendance , status, error } = await getAttendance('COOKIES');
 
-// Attendance
-interface AttendanceResponse {
-  attendance?: AttendanceDetail[];
-  error?: string;
-  status: number;
-}
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // attendance provide the response data
+          // status will give the response status ( eg :  200 or 500 )
 
-// And more...
+          // Types
+
+                attendance?: {
+                        courseCode: string;
+                        courseTitle: string;
+                        courseCategory: string;
+                        courseFaculty: string;
+                        courseSlot: string;
+                        courseConducted: number;
+                        courseAbsent: number;
+                        courseAttendance: string;
+                        }[] ;
+                error?: string;
+                status: number;
+
 ```
 
-### Importing Types
+## Marks
 
 ```typescript
-// Import specific types
-import { PasswordInput, UserResponse } from "srm-academia-api";
 
-// Import all types
-import type * as SRMTypes from "srm-academia-api";
+  const { markList , status, error } = await getMarks('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // markList provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+
+                markList?: {
+                  course: string;
+                  category: string;
+                  marks: {
+                    exam: string;
+                    obtained: number;
+                    maxMark: number;
+                  }[] ;
+                  total: { obtained: number; maxMark: number };
+                }[] ;
+                error?: string;
+                status: number;
+
 ```
 
-For complete type documentation, see [TYPES.md](docs/TYPES.md).
-
-## Error Handling
-
-All functions return consistent error objects:
+## Course
 
 ```typescript
-// Success response
-{
-  // ... data
-}
 
-// Error response
-{
-  error: "Error message",
-  status: "error-status"
-}
+  const { courseList , status, error } = await getCourse('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // courseList provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+
+                courseList?: {
+                  courseCode: string;
+                  courseTitle: string;
+                  courseCredit: string;
+                  courseCategory: string;
+                  courseType: string;
+                  courseFaculty: string;
+                  courseSlot: string[];
+                  courseRoomNo: string;
+                }[] ;
+                batch?: string;
+                error?: string;
+                status: number;
+
 ```
 
-## Development
+## Calendar
 
-### Prerequisites
+```typescript
 
-- Node.js >= 18.0.0
-- npm or yarn
+  const { calendar , status, error } = await getCalendar('COOKIES');
 
-### Setup
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // calendar provide the response data
+          // status will give the response status ( eg :  200 or 500 )
 
-```bash
-git clone https://github.com/yourusername/srm-academia-api.git
-cd srm-academia-api
-npm install
+          // Types
+
+                  calendar?: {
+                      month: string;
+                      days: {
+                          date: string;
+                          day: string;
+                          event: string;
+                          dayOrder: string;
+                      }[] ;
+                  }[] ;
+                  error?: string;
+                  status: number;
+
 ```
 
-### Build
+## User Info
 
-```bash
-npm run build
+```typescript
+
+  const { userInfo , status, error } = await getUserInfo('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // userInfo provide the response data
+          // status will give the response status ( eg :  200 or 500 )
+
+          // Types
+                    userInfo?: {
+                        regNumber: string;
+                        name: string;
+                        mobile: string;
+                        section: string;
+                        program: string;
+                        department: string;
+                        semester: string;
+                        batch: string;
+                    } ;
+                    error?: string;
+                    status: number;
+
 ```
-
-### Development Mode
-
-```bash
-npm run dev
-```
-
-### Type Checking
-
-```bash
-npm run type-check
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
@@ -250,7 +273,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Disclaimer
 
 This package is not officially affiliated with SRM Institute of Science and Technology. Use responsibly and in accordance with the institution's terms of service.
-
-## Support
-
-If you encounter any issues or have questions, please [open an issue](https://github.com/yourusername/srm-academia-api/issues) on GitHub.
