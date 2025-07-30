@@ -1,4 +1,4 @@
-import { UserValidationResult, UserResponse } from "../Types/auth";
+import { UserValidationResult, UserResponse } from "../type/auth";
 
 export async function validateUser(
   username: string

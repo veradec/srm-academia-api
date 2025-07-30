@@ -38,7 +38,7 @@ import {
   DaySchedule,
   CourseSlot,
   SlotInfo,
-} from "./Types";
+} from "./type";
 import { fetchCalendar } from "./fetch/fetchcalender";
 import { fetchTimetable } from "./fetch/fetchtimetable";
 

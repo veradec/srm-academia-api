@@ -1,4 +1,4 @@
-import { PasswordInput, PasswordResponse, AuthResult } from "../Types/auth";
+import { PasswordInput, PasswordResponse, AuthResult } from "../type/auth";
 
 export async function validatePassword({
   identifier,
