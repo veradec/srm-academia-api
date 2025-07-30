@@ -1,6 +1,6 @@
 {
   "name": "srm-academia-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "REST API for SRMIST KTR Academia portal",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -19,11 +19,7 @@
     "build": "tsc",
     "dev": "ts-node src/index.ts",
     "prepublishOnly": "npm run build",
-    "test": "node scripts/test-package.js",
-    "clean": "rm -rf dist",
-    "type-check": "tsc --noEmit",
-    "verify": "node scripts/verify-publish.js",
-    "test-package": "node scripts/test-package.js"
+    "clean": "rm -rf dist"
   },
   "keywords": [
     "srm academia api",
