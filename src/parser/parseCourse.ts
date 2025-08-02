@@ -7,7 +7,7 @@ export async function parseCourseDetails(
   try {
     const match = response.match(/pageSanitizer\.sanitize\('(.*)'\);/s);
     if (!match || !match[1]) {
-      return { error: "Failed to extract course details", status: 500 };
+      return { error: "Failed to extract course details", status: 404 };
     }
 
     const encodedHtml = match[1];

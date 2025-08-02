@@ -17,7 +17,7 @@ A robust TypeScript/JavaScript client for interacting with the SRMIST KTR Academ
 ## Installation
 
 ```bash
-npm install srm-academia-api
+npm install srm-academia-api@latest
 ```
 
 ## Quick Start
@@ -110,7 +110,7 @@ import {
 
           // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
           // timetable provide the response data
-          // status will give the response status ( eg :  200 or 500 )
+          // status will give the response status { 200 : success , 404 : unauthorized , 500 : internal server Error}
 
           // Types
 
@@ -140,7 +140,8 @@ import {
 
           // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
           // attendance provide the response data
-          // status will give the response status ( eg :  200 or 500 )
+          // status will give the response status { 200 : success , 404 : unauthorized , 500 : internal server Error}
+
 
           // Types
 
@@ -167,7 +168,8 @@ import {
 
           // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
           // markList provide the response data
-          // status will give the response status ( eg :  200 or 500 )
+          // status will give the response status { 200 : success , 404 : unauthorized , 500 : internal server Error}
+
 
           // Types
 
@@ -194,7 +196,8 @@ import {
 
           // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
           // courseList provide the response data
-          // status will give the response status ( eg :  200 or 500 )
+          // status will give the response status { 200 : success , 404 : unauthorized , 500 : internal server Error}
+
 
           // Types
 
@@ -222,7 +225,8 @@ import {
 
           // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
           // calendar provide the response data
-          // status will give the response status ( eg :  200 or 500 )
+          // status will give the response status { 200 : success , 404 : unauthorized , 500 : internal server Error}
+
 
           // Types
 
@@ -248,7 +252,8 @@ import {
 
           // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
           // userInfo provide the response data
-          // status will give the response status ( eg :  200 or 500 )
+          // status will give the response status { 200 : success , 404 : unauthorized , 500 : internal server Error}
+
 
           // Types
                     userInfo?: {

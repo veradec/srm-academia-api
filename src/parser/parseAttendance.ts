@@ -7,7 +7,7 @@ export async function parseAttendance(
   try {
     const match = response.match(/pageSanitizer\.sanitize\('(.*)'\);/s);
     if (!match || !match[1]) {
-      return { error: "Failed to extract attendance data", status: 500 };
+      return { error: "Failed to extract attendance data", status: 404 };
     }
     const encodedHtml = match[1];
     const decodedHtml = encodedHtml

@@ -1,6 +1,6 @@
 {
   "name": "srm-academia-api",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "REST API for SRMIST KTR Academia portal",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
