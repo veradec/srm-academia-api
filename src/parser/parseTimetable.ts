@@ -13,7 +13,7 @@ export async function parseTimetable(
   try {
     const match = response.match(/pageSanitizer\.sanitize\('(.*)'\);/s);
     if (!match || !match[1]) {
-      return { error: "Failed to extract timetable details", status: 500 };
+      return { error: "Failed to extract timetable details", status: 404 };
     }
 
     const encodedHtml = match[1];

@@ -11,7 +11,7 @@ export async function parseCalendar(
     );
 
     if (!zmlValue) {
-      return { error: "Could not find zmlvalue attribute", status: 500 };
+      return { error: "Failed to extract calendar details", status: 404 };
     }
 
     const $inner = cheerio.load(zmlValue);

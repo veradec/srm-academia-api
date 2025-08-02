@@ -6,7 +6,7 @@ export async function parseMarks(response: string): Promise<MarksResponse> {
     const match = response.match(/pageSanitizer\.sanitize\('(.*)'\);/s);
     if (!match || !match[1]) {
       console.error("Failed to extract sanitized content from response");
-      return { error: "Failed to extract marks data", status: 500 };
+      return { error: "Failed to extract marks data", status: 404 };
     }
     const encodedHtml = match[1];
     const decodedHtml = encodedHtml
