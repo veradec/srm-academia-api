@@ -7,6 +7,7 @@ export async function attendanceStatus({
   conducted: number;
   absent: number;
 }): Promise<AttendanceStatusType> {
+
   const target = 0.75;
 
   if (conducted === 0) {
