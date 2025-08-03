@@ -31,14 +31,9 @@ export async function validateUser(
     );
     const response = (await res.json()) as UserRequest;
 
-    if (!response.lookup) {
-      throw new Error("Invalid response: missing identifier or digest");
-    }
-
     const data: UserResponse = {
-      identifier: response.lookup.identifier,
-      digest: response.lookup.digest,
-
+      identifier: response.lookup?.identifier,
+      digest: response.lookup?.digest,
       status_code: response.status_code,
       message: response.message,
     };

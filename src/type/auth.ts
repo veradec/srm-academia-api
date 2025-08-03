@@ -15,12 +15,11 @@ export interface UserRequest {
 }
 
 export interface UserResponse {
-  identifier: string;
-  digest: string;
+  identifier?: string;
+  digest?: string;
   status_code: number;
   message: string;
 }
-
 
 export interface PasswordResponse {
   status_code: number;
