@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import { AttendanceResponse, AttendanceDetail } from "../type/attendance";
-
+import { attendanceStatus } from "../../utils/attendanceStatus";
 export async function parseAttendance(
   response: string
 ): Promise<AttendanceResponse> {
@@ -36,6 +36,10 @@ export async function parseAttendance(
         courseAttendance: cols[8]
           ? $(cols[8]).find("strong").text().trim()
           : "",
+        courseAttendanceStatus: attendanceStatus({
+          conducted: Number(get(6)),
+          absent: Number(get(7)),
+        }),
       };
     });
 

@@ -8,10 +8,16 @@ export interface AttendanceDetail {
   courseConducted: number;
   courseAbsent: number;
   courseAttendance: string;
+  courseAttendanceStatus: AttendanceStatusType;
 }
 
 export interface AttendanceResponse {
   attendance?: AttendanceDetail[];
   error?: string;
   status: number;
+}
+
+export interface AttendanceStatusType {
+  status: "required" | "margin";
+  classes: number;
 }
