@@ -1,15 +1,13 @@
-export interface AttendanceStatusType {
-  status: "required" | "margin";
-  classes: number;
-}
+import { AttendanceStatusType } from "../src/type";
 
-export function attendanceStatus({
+export async function attendanceStatus({
   conducted,
   absent,
 }: {
   conducted: number;
   absent: number;
-}): AttendanceStatusType {
+}): Promise<AttendanceStatusType> {
+
   const target = 0.75;
 
   if (conducted === 0) {

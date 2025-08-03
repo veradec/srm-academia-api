@@ -21,27 +21,31 @@ export async function parseAttendance(
     const table = $('table[style*="font-size :16px;"][bgcolor="#FAFAD2"]');
 
     const rows = table.find("tr").slice(1).toArray();
-    const attendanceDetails: AttendanceDetail[] = rows.map((row) => {
-      const cols = $(row).find("td");
-      const get = (idx: number) =>
-        cols[idx] ? $(cols[idx]).text().trim() : "";
-      return {
-        courseCode: cols[0] ? $(cols[0]).contents().first().text().trim() : "",
-        courseTitle: get(1),
-        courseCategory: get(2),
-        courseFaculty: get(3).split("(")[0].trim(),
-        courseSlot: get(4),
-        courseConducted: Number(get(6)),
-        courseAbsent: Number(get(7)),
-        courseAttendance: cols[8]
-          ? $(cols[8]).find("strong").text().trim()
-          : "",
-        courseAttendanceStatus: attendanceStatus({
-          conducted: Number(get(6)),
-          absent: Number(get(7)),
-        }),
-      };
-    });
+    const attendanceDetails: AttendanceDetail[] = await Promise.all(
+      rows.map(async (row) => {
+        const cols = $(row).find("td");
+        const get = (idx: number) =>
+          cols[idx] ? $(cols[idx]).text().trim() : "";
+        return {
+          courseCode: cols[0]
+            ? $(cols[0]).contents().first().text().trim()
+            : "",
+          courseTitle: get(1),
+          courseCategory: get(2),
+          courseFaculty: get(3).split("(")[0].trim(),
+          courseSlot: get(4),
+          courseConducted: Number(get(6)),
+          courseAbsent: Number(get(7)),
+          courseAttendance: cols[8]
+            ? $(cols[8]).find("strong").text().trim()
+            : "",
+          courseAttendanceStatus: await attendanceStatus({
+            conducted: Number(get(6)),
+            absent: Number(get(7)),
+          }),
+        };
+      })
+    );
 
     return { attendance: attendanceDetails, status: 200 };
   } catch (error) {
