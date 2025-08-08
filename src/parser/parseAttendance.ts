@@ -26,7 +26,7 @@ export async function parseAttendance(
         const cols = $(row).find("td");
         const get = (idx: number) =>
           cols[idx] ? $(cols[idx]).text().trim() : "";
-        return {
+        const data = {
           courseCode: cols[0]
             ? $(cols[0]).contents().first().text().trim()
             : "",
@@ -34,15 +34,20 @@ export async function parseAttendance(
           courseCategory: get(2),
           courseFaculty: get(3).split("(")[0].trim(),
           courseSlot: get(4),
-          courseConducted: Number(get(6)),
-          courseAbsent: Number(get(7)),
-          courseAttendance: cols[8]
-            ? $(cols[8]).find("strong").text().trim()
-            : "",
+          courseConducted: get(6) ? Number(get(6)) : 0,
+          courseAbsent: get(7) ? Number(get(7)) : 0,
           courseAttendanceStatus: await attendanceStatus({
             conducted: Number(get(6)),
             absent: Number(get(7)),
           }),
+        };
+        const courseAttendance = Number(
+          ((data.courseConducted - data.courseAbsent) / data.courseConducted) *
+            100
+        ).toFixed(2);
+        return {
+          ...data,
+          courseAttendance,
         };
       })
     );
