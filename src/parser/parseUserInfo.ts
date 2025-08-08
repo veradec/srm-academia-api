@@ -38,7 +38,7 @@ export async function parseUserInfo(
         .trim(),
 
       semester: getText('td:contains("Semester:") + td strong'),
-      batch: getText('td:contains("Batch:") + td strong'),
+      batch: getText('td:contains("Batch:") + td strong font'),
     };
 
     return { userInfo, status: 200 };
