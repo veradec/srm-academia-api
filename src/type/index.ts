@@ -7,6 +7,7 @@ export * from "./course";
 export * from "./attendance";
 export * from "./user";
 export * from "./common";
+export * from "./dayOrder";
 
 // Legacy exports for backward compatibility
 export type { PasswordInput, UserResponse } from "./auth";

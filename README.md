@@ -271,6 +271,25 @@ import {
 
 ```
 
+## Day Order
+
+```typescript
+
+  const { dayOrder , status, error } = await getDayOrder('COOKIES');
+
+          // error will be true if there is any Error with fetch or parsing or even if the cookies wrong
+          // dayOrder provide the response data
+          // status will give the response status { 200 : success , 404 : unauthorized , 500 : internal server Error}
+
+          // Types
+
+                dayOrder?: string;
+                error?: string;
+                status: number;
+
+
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
