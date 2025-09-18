@@ -5,12 +5,14 @@ import { fetchCourseDetails } from "./fetch/fetchCourseDetails";
 import { fetchMarks } from "./fetch/fetchMarks";
 import { fetchUserInfo } from "./fetch/fetchUserInfo";
 import { fetchLogout } from "./fetch/fetchLogout";
+import { fetchDayOrder } from "./fetch/fetchDayOrder";
 import { parseAttendance } from "./parser/parseAttendance";
 import { parseCalendar } from "./parser/parseCalender";
 import { parseCourseDetails } from "./parser/parseCourse";
 import { parseMarks } from "./parser/parseMarks";
 import { parseTimetable } from "./parser/parseTimetable";
 import { parseUserInfo } from "./parser/parseUserInfo";
+import { parseDayOrder } from "./parser/parseDayOrder";
 
 // Import all types
 import {
@@ -27,6 +29,7 @@ import {
   CalendarResponse,
   CourseResponse,
   UserInfoResponse,
+  DayOrderResponse,
   // Data types
   MarkDetail,
   Mark,
@@ -57,6 +60,7 @@ export type {
   CalendarResponse,
   CourseResponse,
   UserInfoResponse,
+  DayOrderResponse,
   // Data types
   MarkDetail,
   Mark,
@@ -134,6 +138,15 @@ export async function getCalendar(cookie: string): Promise<CalendarResponse> {
   const fetch = await fetchCalendar(cookie);
   if (fetch.error) return { error: fetch.error, status: fetch.status };
   const parse = await parseCalendar(fetch);
+  if (parse.error) return { error: parse.error, status: parse.status };
+  return parse;
+}
+
+// Get Day Order
+export async function getDayOrder(cookie: string): Promise<DayOrderResponse> {
+  const fetch = await fetchDayOrder(cookie);
+  if (fetch.error) return { error: fetch.error, status: fetch.status };
+  const parse = await parseDayOrder(fetch);
   if (parse.error) return { error: parse.error, status: parse.status };
   return parse;
 }
